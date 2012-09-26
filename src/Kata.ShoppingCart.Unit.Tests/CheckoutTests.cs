@@ -1,3 +1,4 @@
+using Moq;
 using NUnit.Framework;
 
 namespace Kata.ShoppingCart.Unit.Tests
@@ -8,7 +9,8 @@ namespace Kata.ShoppingCart.Unit.Tests
         [Test]
         public void EmptyCheckoutHasZeroTotal()
         {
-            Assert.That(0, Is.EqualTo(new Checkout().Total()));
+            var mock = new Mock<IDiscounter>();
+            Assert.That(0, Is.EqualTo(new Checkout(mock.Object).Total()));
         }
     }
 }
