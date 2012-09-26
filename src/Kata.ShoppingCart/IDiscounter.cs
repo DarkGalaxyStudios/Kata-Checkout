@@ -2,6 +2,6 @@ namespace Kata.ShoppingCart
 {
     public interface IDiscounter
     {
-        void DiscountFor();
+        int DiscountFor(string s);
     }
 }
