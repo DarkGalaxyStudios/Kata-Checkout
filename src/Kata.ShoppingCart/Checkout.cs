@@ -1,4 +1,6 @@
-﻿namespace Kata.ShoppingCart
+﻿using System.Globalization;
+
+namespace Kata.ShoppingCart
 {
     public class Checkout
     {
@@ -16,10 +18,13 @@
             return _total;
         }
 
-        public void Scan(string item)
+        public void Scan(string items)
         {
-            var discount = _discounter.DiscountFor(item);
-            _total -= discount;
+            foreach (var item in items.ToCharArray())
+            {
+                var discount = _discounter.DiscountFor(item.ToString(CultureInfo.InvariantCulture));
+                _total -= discount;
+            }
         }
     }
 }
