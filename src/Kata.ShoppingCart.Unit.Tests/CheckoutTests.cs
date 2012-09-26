@@ -9,8 +9,16 @@ namespace Kata.ShoppingCart.Unit.Tests
         [Test]
         public void EmptyCheckoutHasZeroTotal()
         {
-            var mock = new Mock<IDiscounter>();
-            Assert.That(0, Is.EqualTo(new Checkout(mock.Object).Total()));
+            var discounter = new Mock<IDiscounter>();
+            Assert.That(0, Is.EqualTo(new Checkout(discounter.Object).Total()));
+        }
+
+        [Test]
+        public void ScanningShouldGetDiscounts()
+        {
+            var discounter = new Mock<IDiscounter>();
+            new Checkout(discounter.Object).Scan();
+            discounter.Verify(v => v.DiscountFor());
         }
     }
 }
