@@ -17,6 +17,15 @@ namespace Kata.ShoppingCart.Unit.Tests
         }
 
         [Test]
+        public void ShouldFindPriceForItemPassedIn()
+        {
+            var priceFinder = new Mock<IPriceFinder>();
+            var item = "a";
+            new Checkout(new Mock<IDiscounter>().Object, priceFinder.Object).Scan(item);
+            priceFinder.Verify(v => v.PriceFor(item));
+        }
+
+        [Test]
         public void ShouldRetrieveCorrectPriceForMultipleItems()
         {
             var priceFinder = new Mock<IPriceFinder>();
@@ -26,7 +35,6 @@ namespace Kata.ShoppingCart.Unit.Tests
             subject.Scan(items);
 
             priceFinder.Verify(v => v.PriceFor(It.IsAny<string>()), Times.Exactly(items.Length));
-          
         }
     }
 }
