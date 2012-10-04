@@ -22,10 +22,10 @@ namespace Kata.ShoppingCart
 
         public void Scan(string items)
         {
-            _priceFinder.PriceFor(items);
             foreach (var item in items.ToCharArray())
             {
                 var discount = _discounter.DiscountFor(item.ToString(CultureInfo.InvariantCulture));
+                _priceFinder.PriceFor(items);
                 _total -= discount;
             }
         }
