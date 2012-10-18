@@ -18,6 +18,10 @@
             {
                 Total = 30;
             }
+            if (items.Equals("bb"))
+            {
+                Total = 60;
+            }
         }
     }
 }
