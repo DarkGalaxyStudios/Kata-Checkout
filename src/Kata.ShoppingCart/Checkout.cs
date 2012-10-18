@@ -2,14 +2,16 @@
 {
     public class Checkout
     {
-        public Checkout(IDiscounter discounter)
+        public int Total;
+
+        public Checkout()
         {
             
         }
 
-        public int Total()
+        public Checkout Scan(string empty)
         {
-            return 0;
+            return this;
         }
     }
 }
