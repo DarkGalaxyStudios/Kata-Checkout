@@ -6,28 +6,42 @@ namespace Kata.ShoppingCart.Unit.Tests
     [TestFixture]
     public class CheckoutTests
     {
+        private Checkout _checkout;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _checkout = new Checkout();
+        }
+
         [Test]
         public void Initial_total_is_zero()
         {
-            var checkout = new Checkout();
-
-            Assert.That(checkout.Total, Is.EqualTo(0));
+            Assert.That(_checkout.Total, Is.EqualTo(0));
         }
 
         [Test]
         public void Scanning_an_empty_item_list_returns_zero()
         {
-            var checkout = new Checkout().Scan(string.Empty);
+            _checkout.Scan(string.Empty);
 
-            Assert.That(checkout.Total, Is.EqualTo(0));
+            Assert.That(_checkout.Total, Is.EqualTo(0));
         }
 
         [Test]
         public void Scanning_one_a_returns_50()
         {
-            var checkout = new Checkout().Scan("a");
+            _checkout.Scan("a");
 
-            Assert.That(checkout.Total, Is.EqualTo(50));
+            Assert.That(_checkout.Total, Is.EqualTo(50));
+        }
+
+        [Test]
+        public void Scanning_two_as_returns_100()
+        {
+            _checkout.Scan("aa");
+
+            Assert.That(_checkout.Total, Is.EqualTo(100));
         }
     }
 }
