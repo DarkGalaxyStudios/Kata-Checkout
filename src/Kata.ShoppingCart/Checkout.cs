@@ -6,21 +6,21 @@
 
         public void Scan(string items)
         {
-            if(items.Equals("a"))
+            foreach(var item in items)
             {
-                Total = 50;
+                Scan(item);
             }
-            if (items.Equals("aa"))
+        }
+
+        private void Scan(char item)
+        {
+            if (item.Equals('a'))
             {
-                Total = 100;
+                Total += 50;
             }
-            if(items.Equals("b"))
+            else if (item.Equals('b'))
             {
-                Total = 30;
-            }
-            if (items.Equals("bb"))
-            {
-                Total = 60;
+                Total += 30;
             }
         }
     }
