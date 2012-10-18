@@ -4,7 +4,7 @@
     {
         public int Total;
 
-        public Checkout Scan(string items)
+        public void Scan(string items)
         {
             if(items.Equals("a"))
             {
@@ -18,7 +18,6 @@
             {
                 Total = 30;
             }
-            return this;
         }
     }
 }

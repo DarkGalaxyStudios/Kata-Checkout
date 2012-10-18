@@ -26,7 +26,7 @@ namespace Kata.ShoppingCart.Unit.Tests
             _checkout.Scan(string.Empty);
 
             Assert.That(_checkout.Total, Is.EqualTo(0));
-        }
+        }   
 
         [Test]
         public void Scanning_one_a_returns_50()
