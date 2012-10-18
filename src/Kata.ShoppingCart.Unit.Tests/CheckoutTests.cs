@@ -9,13 +9,17 @@ namespace Kata.ShoppingCart.Unit.Tests
         [Test]
         public void Initial_total_is_zero()
         {
-            Assert.That(new Checkout().Total, Is.EqualTo(0));
+            var checkout = new Checkout();
+
+            Assert.That(checkout.Total, Is.EqualTo(0));
         }
 
         [Test]
         public void Scanning_an_empty_item_list_returns_zero()
         {
-            Assert.That(new Checkout().Scan(string.Empty).Total, Is.EqualTo(0));
+            var checkout = new Checkout().Scan(string.Empty);
+
+            Assert.That(checkout.Total, Is.EqualTo(0));
         }
     }
 }
