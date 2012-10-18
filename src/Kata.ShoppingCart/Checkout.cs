@@ -1,10 +1,30 @@
-﻿namespace Kata.ShoppingCart
+﻿using System.Collections.Generic;
+
+namespace Kata.ShoppingCart
 {
     public class Checkout
     {
         public int Total;
-        private int _numberOfBs;
-        private int _numberOfAs;
+        private readonly Dictionary<char, int> _price = new Dictionary<char, int>
+        {
+            {'a', 50},
+            {'b', 30}
+        };
+        private readonly Dictionary<char, int> _discountAmount = new Dictionary<char, int>
+        {
+            {'a', 20},
+            {'b', 15}
+        };
+        private readonly Dictionary<char, int> _discountQuantity = new Dictionary<char, int>
+        {
+            {'a', 3},
+            {'b', 2}
+        };
+        private readonly Dictionary<char, int> _itemCount = new Dictionary<char, int>
+        {
+            {'a', 0},
+            {'b', 0}
+        };
 
         public void Scan(string items)
         {
@@ -16,23 +36,11 @@
 
         private void Scan(char item)
         {
-            if (item.Equals('a'))
+            Total += _price[item];
+
+            if ((++_itemCount[item] % _discountQuantity[item]) == 0)
             {
-                Total += 50;
-                _numberOfAs++;
-                if ((_numberOfAs % 3) == 0)
-                {
-                    Total -= 20;
-                }
-            }
-            else if (item.Equals('b'))
-            {
-                Total += 30;
-                _numberOfBs++;
-                if ((_numberOfBs % 2) == 0)
-                {
-                    Total -= 15;
-                }
+                Total -= _discountAmount[item];
             }
         }
     }
