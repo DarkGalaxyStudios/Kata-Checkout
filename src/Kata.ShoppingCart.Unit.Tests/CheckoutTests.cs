@@ -53,11 +53,11 @@ namespace Kata.ShoppingCart.Unit.Tests
         }
 
         [Test]
-        public void Scanning_two_bs_returns_60()
+        public void Scanning_two_bs_returns_45()
         {
             _checkout.Scan("bb");
 
-            Assert.That(_checkout.Total, Is.EqualTo(60));
+            Assert.That(_checkout.Total, Is.EqualTo(45));
         }
     }
 }
