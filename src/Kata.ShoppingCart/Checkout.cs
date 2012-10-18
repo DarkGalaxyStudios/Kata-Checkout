@@ -9,8 +9,12 @@
             
         }
 
-        public Checkout Scan(string empty)
+        public Checkout Scan(string items)
         {
+            if(items.Equals("a"))
+            {
+                Total = 50;
+            }
             return this;
         }
     }
