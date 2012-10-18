@@ -3,7 +3,8 @@
     public class Checkout
     {
         public int Total;
-        private int _numberOfBs = 0;
+        private int _numberOfBs;
+        private int _numberOfAs;
 
         public void Scan(string items)
         {
@@ -18,6 +19,11 @@
             if (item.Equals('a'))
             {
                 Total += 50;
+                _numberOfAs++;
+                if ((_numberOfAs % 3) == 0)
+                {
+                    Total -= 20;
+                }
             }
             else if (item.Equals('b'))
             {
