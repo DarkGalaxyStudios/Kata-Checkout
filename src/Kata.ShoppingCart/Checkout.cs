@@ -7,13 +7,9 @@
 
         public void Scan(string items)
         {
-            foreach(var item in items)
+            foreach (var item in items)
             {
                 Scan(item);
-            }
-            if(_numberOfBs == 2)
-            {
-                Total -= 15;
             }
         }
 
@@ -27,6 +23,10 @@
             {
                 Total += 30;
                 _numberOfBs++;
+                if ((_numberOfBs % 2) == 0)
+                {
+                    Total -= 15;
+                }
             }
         }
     }
