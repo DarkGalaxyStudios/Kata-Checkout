@@ -43,5 +43,13 @@ namespace Kata.ShoppingCart.Unit.Tests
 
             Assert.That(_checkout.Total, Is.EqualTo(100));
         }
+
+        [Test]
+        public void Scanning_one_b_returns_30()
+        {
+            _checkout.Scan("b");
+
+            Assert.That(_checkout.Total, Is.EqualTo(30));
+        }
     }
 }

@@ -14,6 +14,10 @@
             {
                 Total = 100;
             }
+            if(items.Equals("b"))
+            {
+                Total = 30;
+            }
             return this;
         }
     }
