@@ -61,7 +61,7 @@ namespace Kata.ShoppingCart.Unit.Tests
         }
 
         [Test]
-        public void Scanning_three_bs_returns_returns_75()
+        public void Scanning_three_bs_returns_75()
         {
             _checkout.Scan("bbb");
 
