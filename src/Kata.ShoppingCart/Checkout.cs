@@ -8,22 +8,26 @@ namespace Kata.ShoppingCart
         private readonly Dictionary<char, int> _price = new Dictionary<char, int>
         {
             {'a', 50},
-            {'b', 30}
+            {'b', 30},
+            {'c', 20}
         };
         private readonly Dictionary<char, int> _discountAmount = new Dictionary<char, int>
         {
             {'a', 20},
-            {'b', 15}
+            {'b', 15},
+            {'c', 0}
         };
         private readonly Dictionary<char, int> _discountQuantity = new Dictionary<char, int>
         {
             {'a', 3},
-            {'b', 2}
+            {'b', 2},
+            {'c', 1}
         };
         private readonly Dictionary<char, int> _itemCount = new Dictionary<char, int>
         {
             {'a', 0},
-            {'b', 0}
+            {'b', 0},
+            {'c', 0}
         };
 
         public void Scan(string items)
