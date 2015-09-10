@@ -30,13 +30,10 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgvCart = new System.Windows.Forms.DataGridView();
-            this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblTotal = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblDiscounts = new System.Windows.Forms.Label();
+            this.lblSubtotal = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -52,10 +49,10 @@
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.dgvCart);
-            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.lblTotal);
             this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.lblDiscounts);
+            this.panel1.Controls.Add(this.lblSubtotal);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
@@ -68,45 +65,21 @@
             // 
             this.dgvCart.AllowUserToDeleteRows = false;
             this.dgvCart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCart.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Item,
-            this.Qty,
-            this.Price});
             this.dgvCart.Location = new System.Drawing.Point(3, 38);
             this.dgvCart.Name = "dgvCart";
             this.dgvCart.ReadOnly = true;
             this.dgvCart.Size = new System.Drawing.Size(314, 408);
             this.dgvCart.TabIndex = 2;
             // 
-            // Item
+            // lblTotal
             // 
-            this.Item.HeaderText = "Item";
-            this.Item.Name = "Item";
-            this.Item.ReadOnly = true;
-            // 
-            // Qty
-            // 
-            this.Qty.HeaderText = "Qty";
-            this.Qty.MaxInputLength = 3;
-            this.Qty.Name = "Qty";
-            this.Qty.ReadOnly = true;
-            this.Qty.Width = 50;
-            // 
-            // Price
-            // 
-            this.Price.HeaderText = "Price";
-            this.Price.Name = "Price";
-            this.Price.ReadOnly = true;
-            // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(201, 504);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(120, 31);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "$0.00";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotal.Location = new System.Drawing.Point(201, 504);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(120, 31);
+            this.lblTotal.TabIndex = 8;
+            this.lblTotal.Text = "$0.00";
+            this.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label6
             // 
@@ -118,26 +91,26 @@
             this.label6.TabIndex = 7;
             this.label6.Text = "Total";
             // 
-            // label5
+            // lblDiscounts
             // 
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(203, 469);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(116, 20);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "$0.00";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblDiscounts.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.lblDiscounts.ForeColor = System.Drawing.Color.Red;
+            this.lblDiscounts.Location = new System.Drawing.Point(203, 469);
+            this.lblDiscounts.Name = "lblDiscounts";
+            this.lblDiscounts.Size = new System.Drawing.Size(116, 20);
+            this.lblDiscounts.TabIndex = 6;
+            this.lblDiscounts.Text = "$0.00";
+            this.lblDiscounts.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label4
+            // lblSubtotal
             // 
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(207, 449);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(112, 20);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "$0.00";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblSubtotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSubtotal.Location = new System.Drawing.Point(207, 449);
+            this.lblSubtotal.Name = "lblSubtotal";
+            this.lblSubtotal.Size = new System.Drawing.Size(112, 20);
+            this.lblSubtotal.TabIndex = 5;
+            this.lblSubtotal.Text = "$0.00";
+            this.lblSubtotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label3
             // 
@@ -237,13 +210,10 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView dgvCart;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Item;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Qty;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblDiscounts;
+        private System.Windows.Forms.Label lblSubtotal;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
