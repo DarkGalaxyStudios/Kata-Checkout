@@ -13,26 +13,30 @@ namespace Kata.ShoppingCart.Main
 {
     public partial class CheckOutScreen : Form
     {
-        List<CartItem> CartItemList { get; set; }
-        List<CartItemView> CartItems { get; set; }
+        List<CartItemViewModel> CartItems { get; set; }
 
-        Dictionary<CartItem, int> itemDictionary { get; set; }
+        public int? SubTotal { get; set; }
+        public int? Discounts { get; set; }
+        public int? Total { get; set; }
 
-        public decimal SubTotal { get; set; }
-        public decimal Discounts { get; set; }
-        public decimal Total { get; set; }
+        public PriceRules PriceRules { get; set; }
 
         public CheckOutScreen()
         {
             InitializeComponent();
 
-            CartItemList = new List<CartItem>();
-            CartItems = new List<CartItemView>();
-            itemDictionary = new Dictionary<CartItem, int>();
-            dgvCart.DataSource = CartItems;
+            CartItems = new List<CartItemViewModel>();
+
+            ClearShoppingCart();
+
             SubTotal = 0;
             Discounts = 0;
             Total = 0;
+
+            Dictionary<string, int> saleRules = new Dictionary<string, int>();
+            saleRules.Add("A:3", 130);
+            saleRules.Add("B:2", 45);
+            PriceRules = new PriceRules(saleRules);
         }
 
         private void UpdateCartItem(string sku)
@@ -44,177 +48,71 @@ namespace Kata.ShoppingCart.Main
         {
             ClearShoppingCart();
 
-            decimal totalPrice = 0;
-            decimal discountPrice = 0;
-            foreach (CartItemView item in CartItems)
+            foreach(CartItemViewModel item in CartItems)
             {
-                totalPrice += item.Qty * item.Price;
+                int? specialPrice = PriceRules.PriceCheck(item.SKU, item.Qty);
 
-                if(CartItemList.Find(x => x.Name == item.Name).SpecialValue > 0 && 
-                    (CartItems.Find(x => x.Name == item.Name).Qty % CartItemList.Find(x => x.Name == item.Name).SpecialQty == 0))
-                        discountPrice -= (item.Qty / CartItemList.Find(x => x.Name == item.Name).SpecialQty) * CartItemList.Find(x => x.Name == item.Name).SpecialValue;
+                if(specialPrice != null)
+                {
+                    Discounts += (int)(item.Qty * item.Price) - specialPrice;
+                }
+
+                SubTotal += item.Price;
             }
 
-            decimal differece = totalPrice + discountPrice;
-            lblDiscounts.Text = differece.ToString("C");
-            lblSubtotal.Text = totalPrice.ToString("C");
-
-            lblTotal.Text = (totalPrice - differece).ToString("C");
+            lblSubtotal.Text = SubTotal.ToString();
+            lblDiscounts.Text = Discounts.ToString();
+            lblTotal.Text = (SubTotal - Discounts).ToString();
         }
 
-        private CartItem GetCartItem(string sku)
+        private void Scan(CartItemViewModel item)
         {
-            return CartItemList.Find(x => x.Name == sku);
+            if (!CheckExists(item))
+            {
+                item.Qty = 1;
+                CartItems.Add(item);
+            }
+            else
+            {
+                CartItems.Find(x => x.SKU == item.SKU).Qty++;
+            }
+
+            ClearShoppingCart();
+
+            UpdateTotals();
         }
 
-        private bool CheckExists(CartItem item)
+        private bool CheckExists(CartItemViewModel item)
         {
-            return CartItems.Exists(x => x.Name == item.Name);
+            CartItemViewModel i = CartItems.Find(x => x.SKU == item.SKU);
+            if (i != null)
+                return true;
+            else
+                return false;
         }
 
         private void btnItemA_Click(object sender, EventArgs e)
         {
-            CartItem item = new CartItem();
-            item.SpecialQty = 3;
-            item.SpecialValue = 130;
-            item.Name = "A";
-            item.Price = 50;
-
-            //Check if the item already exists in the list
-            if(!CheckExists(item))
-            {
-                //Add to the Item List
-                CartItemList.Add(item);
-
-                //Create the view for the data grid
-                CartItemView civ = new CartItemView();
-                civ.Name = item.Name;
-                civ.Price = item.Price;
-                civ.Qty = 1;
-                
-                CartItems.Add(civ);
-            }
-            else
-            {
-                //Update the item in the view
-                CartItems.Find(x => x.Name == item.Name).Qty++;
-            }
-
-            //Check if item has a special rule and update if applicable
-            CheckSpecial();
-
-            UpdateTotals();
-            
+            CartItemViewModel item = new CartItemViewModel { SKU = "A", Price = 50 };
+            Scan(item);
         }
 
         private void btnItemB_Click(object sender, EventArgs e)
         {
-            CartItem item = new CartItem();
-            item.SpecialQty = 2;
-            item.SpecialValue = 45;
-            item.Name = "B";
-            item.Price = 30;
-
-            //Check if the item already exists in the list
-            if (!CheckExists(item))
-            {
-                //Add to the Item List
-                CartItemList.Add(item);
-
-                //Create the view for the data grid
-                CartItemView civ = new CartItemView();
-                civ.Name = item.Name;
-                civ.Price = item.Price;
-                civ.Qty = 1;
-
-                CartItems.Add(civ);
-            }
-            else
-            {
-                //Update the item in the view
-                CartItems.Find(x => x.Name == item.Name).Qty++;
-            }
-
-            //Check if item has a special rule and update if applicable
-            CheckSpecial();
-
-            UpdateTotals();
+            CartItemViewModel item = new CartItemViewModel { SKU = "B", Price = 30 };
+            Scan(item);
         }
 
         private void btnItemC_Click(object sender, EventArgs e)
         {
-            CartItem item = new CartItem();
-            item.SpecialQty = 0;
-            item.SpecialValue = 0;
-            item.Name = "C";
-            item.Price = 20;
-
-            //Check if the item already exists in the list
-            if (!CheckExists(item))
-            {
-                //Add to the Item List
-                CartItemList.Add(item);
-
-                //Create the view for the data grid
-                CartItemView civ = new CartItemView();
-                civ.Name = item.Name;
-                civ.Price = item.Price;
-                civ.Qty = 1;
-
-                CartItems.Add(civ);
-            }
-            else
-            {
-                //Update the item in the view
-                CartItems.Find(x => x.Name == item.Name).Qty++;
-            }
-
-            //Check if item has a special rule and update if applicable
-            CheckSpecial();
-
-            UpdateTotals();
+            CartItemViewModel item = new CartItemViewModel { SKU = "C", Price = 20 };
+            Scan(item);
         }
 
         private void btnItemD_Click(object sender, EventArgs e)
         {
-            CartItem item = new CartItem();
-            item.SpecialQty = 0;
-            item.SpecialValue = 0;
-            item.Name = "D";
-            item.Price = 15;
-
-            //Check if the item already exists in the list
-            if (!CheckExists(item))
-            {
-                //Add to the Item List
-                CartItemList.Add(item);
-
-                //Create the view for the data grid
-                CartItemView civ = new CartItemView();
-                civ.Name = item.Name;
-                civ.Price = item.Price;
-                civ.Qty = 1;
-
-                CartItems.Add(civ);
-            }
-            else
-            {
-                //Update the item in the view
-                CartItems.Find(x => x.Name == item.Name).Qty++;
-            }
-
-            //Check if item has a special rule and update if applicable
-            CheckSpecial();
-
-            UpdateTotals();
-        }
-
-        private void CheckSpecial()
-        {
-            foreach(CartItemView item in CartItems)
-            {
-
-            }
+            CartItemViewModel item = new CartItemViewModel { SKU = "D", Price = 15 };
+            Scan(item);
         }
 
         private void ClearShoppingCart()
@@ -224,6 +122,23 @@ namespace Kata.ShoppingCart.Main
             dgvCart.Rows.Clear();
 
             dgvCart.DataSource = CartItems;
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            CartItems.Clear();
+            SubTotal = 0;
+            Discounts = 0;
+            Total = 0;
+            lblDiscounts.Text = Discounts.ToString();
+            lblSubtotal.Text = SubTotal.ToString();
+            lblTotal.Text = Total.ToString();
+            ClearShoppingCart();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

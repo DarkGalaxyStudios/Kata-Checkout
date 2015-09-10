@@ -41,6 +41,8 @@
             this.btnItemB = new System.Windows.Forms.Button();
             this.btnItemC = new System.Windows.Forms.Button();
             this.btnItemD = new System.Windows.Forms.Button();
+            this.btnReset = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCart)).BeginInit();
             this.SuspendLayout();
@@ -187,18 +189,47 @@
             this.btnItemD.UseVisualStyleBackColor = true;
             this.btnItemD.Click += new System.EventHandler(this.btnItemD_Click);
             // 
+            // btnReset
+            // 
+            this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnReset.Location = new System.Drawing.Point(391, 475);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(88, 73);
+            this.btnReset.TabIndex = 6;
+            this.btnReset.Text = "Reset";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
+            // btnExit
+            // 
+            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnExit.Location = new System.Drawing.Point(601, 471);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(88, 73);
+            this.btnExit.TabIndex = 7;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
             // CheckOutScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ControlBox = false;
+            this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnItemD);
             this.Controls.Add(this.btnItemC);
             this.Controls.Add(this.btnItemB);
             this.Controls.Add(this.btnItemA);
             this.Controls.Add(this.panel1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "CheckOutScreen";
-            this.Text = "CheckOutScreen";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Check Out Challenge";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCart)).EndInit();
@@ -221,5 +252,7 @@
         private System.Windows.Forms.Button btnItemB;
         private System.Windows.Forms.Button btnItemC;
         private System.Windows.Forms.Button btnItemD;
+        private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.Button btnExit;
     }
 }
