@@ -15,7 +15,7 @@ namespace Kata.ShoppingCart
         {
             if (Qty % minQty == 0)
             {
-                this.Price = specialPrice;
+                this.Price = specialPrice - this.Price;
             }
         }
     }
