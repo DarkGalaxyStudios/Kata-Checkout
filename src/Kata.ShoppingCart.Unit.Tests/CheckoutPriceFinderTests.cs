@@ -1,40 +1,45 @@
 ﻿using Moq;
 using NUnit.Framework;
 
+using System;
+using System.Collections.Generic;
+using Kata.ShoppingCart;
+
 namespace Kata.ShoppingCart.Unit.Tests
 {
     [TestFixture]
     class CheckoutPriceFinderTests
     {
-        [Test]
-        public void ShouldRetrieveCorrectPriceForOneItem()
-        {
-            var priceFinder = new Mock<IPriceFinder>();
-            var subject = new Checkout(new Mock<IDiscounter>().Object, priceFinder.Object);
-            subject.Scan("A");
 
-            priceFinder.Verify(v => v.PriceFor(It.IsAny<string>()));
+        [Test]
+        public void WillNotProvideSpecialWhenNotOnSale()
+        {
+            Dictionary<string, int> sales = new Dictionary<string, int>();
+            PriceRules specialRules = new PriceRules(sales);
+            Assert.Null(specialRules.PriceCheck("A", 1));
         }
 
         [Test]
-        public void ShouldFindPriceForItemPassedIn()
+        public void WillNotProvideSpecialPriceWhenNotEnoughQty()
         {
-            var priceFinder = new Mock<IPriceFinder>();
-            var item = "a";
-            new Checkout(new Mock<IDiscounter>().Object, priceFinder.Object).Scan(item);
-            priceFinder.Verify(v => v.PriceFor(item));
+            Dictionary<string, int> sales = new Dictionary<string, int>();
+            sales.Add("A:3", 130);
+            PriceRules specialRules = new PriceRules(sales);
+
+            Assert.Null(specialRules.PriceCheck("A", 1));
         }
 
         [Test]
-        public void ShouldRetrieveCorrectPriceForMultipleItems()
+        [TestCase("A", 3, 130)]
+        [TestCase("B", 2, 45)]
+        public void WillProvideSpecialPriceWhenEnoughQty(string sku, int qty, int sPrice)
         {
-            var priceFinder = new Mock<IPriceFinder>();
-            var subject = new Checkout(new Mock<IDiscounter>().Object, priceFinder.Object);
-            var items = "AB";
+            Dictionary<string, int> sales = new Dictionary<string, int>();
+            sales.Add(String.Format("{0}:{1}", sku, qty), sPrice);
 
-            subject.Scan(items);
+            PriceRules specialRules = new PriceRules(sales);
 
-            priceFinder.Verify(v => v.PriceFor(It.IsAny<string>()), Times.Exactly(items.Length));
+            Assert.AreEqual(specialRules.PriceCheck(sku, qty), sPrice);
         }
     }
 }
